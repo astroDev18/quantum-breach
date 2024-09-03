@@ -1,0 +1,28 @@
+name: UE Release
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  
+jobs:
+  Verify-Project-Integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use Node.js lasted
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          check-latest: true
+
+      - name: Checkout PROD
+        uses: actions/checkout@v4
+          
+      - name: Create Release
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          artifacts: "UE4&5-github-actions-build"
+          tag: v2.0.0
